@@ -20,9 +20,10 @@ const productSchema = new mongoose.Schema(
     },
     salePrice: {
       type: Number,
+      required: true,
     },
-    size: {
-      type: String,
+    sizes: {
+      type: [String],
       required: true,
       enum: ["XS", "S", "M", "L", "XL", "XXL"],
     },
@@ -41,14 +42,17 @@ const productSchema = new mongoose.Schema(
     categoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
+      required: true,
     },
     subCategoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "SubCategory",
+      required: true,
     },
     brandId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Brand",
+      required: true,
     },
     averageRating: {
       type: Number,
@@ -57,6 +61,10 @@ const productSchema = new mongoose.Schema(
     totalReviews: {
       type: Number,
       default: 0,
+    },
+    flashSale: {
+      type: Boolean,
+      default: false,
     },
   },
   {
