@@ -16,6 +16,7 @@ const Inventory = lazy(() => import("./pages/admin/Inventory"));
 const Post = lazy(() => import("./pages/admin/Post"));
 const Supplier = lazy(() => import("./pages/admin/Supplier"));
 const Brand = lazy(() => import("./pages/admin/Brand"));
+const CreateProduct = lazy(() => import("./pages/admin/CreateProduct"));
 
 const ADMIN_ROUTES = [
   { path: "/admin/dashboard", element: <Dashboard /> },
@@ -23,6 +24,7 @@ const ADMIN_ROUTES = [
   { path: "/admin/category", element: <Category /> },
   { path: "/admin/sub-category", element: <SubCategory /> },
   { path: "/admin/product", element: <Product /> },
+  { path: "/admin/product/create", element: <CreateProduct /> },
   { path: "/admin/order", element: <Order /> },
   { path: "/admin/review", element: <Review /> },
   { path: "/admin/voucher", element: <Voucher /> },

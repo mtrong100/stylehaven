@@ -5,6 +5,11 @@ export const getBrandsApi = async () => {
   return response;
 };
 
+export const getActiveBrandsApi = async () => {
+  const response = await axios.get("/brands/active");
+  return response;
+};
+
 export const createBrandApi = async (data) => {
   const response = await axios.post("/brands/create", data);
   return response;

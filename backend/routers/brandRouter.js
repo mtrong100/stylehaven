@@ -3,6 +3,7 @@ import { protect } from "../middlewares/authMiddlware.js";
 import {
   createBrand,
   deleteBrand,
+  getActiveBrands,
   getBrands,
   updateBrand,
 } from "../controllers/brandController.js";
@@ -10,6 +11,8 @@ import {
 const router = express.Router();
 
 router.get("/", protect, getBrands);
+
+router.get("/active", protect, getActiveBrands);
 
 router.post("/create", protect, createBrand);
 

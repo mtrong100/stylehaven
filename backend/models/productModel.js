@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema(
     },
     about: {
       type: String,
-      required: true,
+  required: true,
     },
     price: {
       type: Number,
@@ -27,8 +27,8 @@ const productSchema = new mongoose.Schema(
       required: true,
       enum: ["XS", "S", "M", "L", "XL", "XXL"],
     },
-    color: {
-      type: String,
+    colors: {
+      type: [String],
       required: true,
     },
     thumbnail: {

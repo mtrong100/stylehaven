@@ -3,6 +3,7 @@ import { protect } from "../middlewares/authMiddlware.js";
 import {
   createSubCategory,
   deleteSubCategory,
+  getActiveSubCategories,
   getSubCategories,
   updateSubCategory,
 } from "../controllers/subCategoryController.js";
@@ -10,6 +11,8 @@ import {
 const router = express.Router();
 
 router.get("/", protect, getSubCategories);
+
+router.get("/active", protect, getActiveSubCategories);
 
 router.post("/create", protect, createSubCategory);
 

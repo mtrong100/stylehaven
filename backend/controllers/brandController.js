@@ -36,6 +36,20 @@ export const getBrands = async (req, res) => {
   }
 };
 
+export const getActiveBrands = async (req, res) => {
+  try {
+    const brands = await Brand.find({ status: "Active" });
+
+    return res.status(200).json({
+      message: "Brands fetched successfully",
+      results: brands,
+    });
+  } catch (error) {
+    console.log("Error getting active brands", error.message);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 export const createBrand = async (req, res) => {
   try {
     const uniqueBrand = await Brand.findOne({

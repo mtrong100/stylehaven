@@ -5,6 +5,11 @@ export const getSubCategoriesApi = async (params) => {
   return response;
 };
 
+export const getActiveSubCategoriesApi = async () => {
+  const response = await axios.get("/sub-categories/active");
+  return response;
+};
+
 export const createSubCategoryApi = async (data) => {
   const response = await axios.post("/sub-categories/create", data);
   return response;

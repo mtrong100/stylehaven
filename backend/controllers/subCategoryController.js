@@ -47,6 +47,20 @@ export const getSubCategories = async (req, res) => {
   }
 };
 
+export const getActiveSubCategories = async (req, res) => {
+  try {
+    const subCategories = await SubCategory.find({ status: "Active" });
+
+    return res.status(200).json({
+      message: "SubCategories fetched successfully",
+      results: subCategories,
+    });
+  } catch (error) {
+    console.log("Error fetching active subCategories", error.message);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 export const createSubCategory = async (req, res) => {
   try {
     const uniqueSubCat = await SubCategory.findOne({
