@@ -42,3 +42,18 @@ export const statusBodyTemplate = (rowData) => {
     />
   );
 };
+
+export const inventoryStatusBodyTemplate = (rowData) => {
+  return (
+    <Badge
+      value={rowData.status}
+      severity={
+        rowData.status === "In Stock"
+          ? "success"
+          : rowData.status === "Low Stock"
+          ? "warning"
+          : "danger"
+      }
+    />
+  );
+};

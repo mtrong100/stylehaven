@@ -1,3 +1,4 @@
+import Inventory from "../models/inventoryModel.js";
 import Product from "../models/productModel.js";
 import { uploadImagesCloudinary } from "../utils/uploadImagesCloudinary.js";
 
@@ -76,12 +77,14 @@ export const createProduct = async (req, res) => {
     // Extract secure URLs from the image results
     const imageUrls = imageResults.map((result) => result.secure_url);
 
-    // Create the new product
-    const newProduct = await Product.create({
-      ...req.body,
-      thumbnail: thumbnailResult.secure_url,
-      images: imageUrls,
-    });
+    const [newProduct, inventory] = await Promise.all([
+      Product.create({
+        ...req.body,
+        thumbnail: thumbnailResult.secure_url,
+        images: imageUrls,
+      }),
+      Inventory.create({ productId: newProduct?._id }),
+    ]);
 
     return res
       .status(200)

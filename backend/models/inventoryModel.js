@@ -10,10 +10,10 @@ const inventorySchema = new mongoose.Schema(
     quantity: {
       type: Number,
       required: true,
-      min: 0,
+      default: 0,
     },
     status: {
-      type: String,
+    type: String,
       enum: ["In Stock", "Out of Stock", "Low Stock"],
       default: "In Stock",
     },
