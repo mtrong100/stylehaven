@@ -30,6 +30,10 @@ export const brandImageBodyTemplate = (rowData) => {
   return <Image src={rowData.image} alt="Image" width="80" />;
 };
 
+export const productThumnailBodyTemplate = (rowData) => {
+  return <Image src={rowData.thumbnail} alt="Image" width="80" />;
+};
+
 export const statusBodyTemplate = (rowData) => {
   return (
     <Badge

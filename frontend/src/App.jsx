@@ -17,6 +17,8 @@ const Post = lazy(() => import("./pages/admin/Post"));
 const Supplier = lazy(() => import("./pages/admin/Supplier"));
 const Brand = lazy(() => import("./pages/admin/Brand"));
 const CreateProduct = lazy(() => import("./pages/admin/CreateProduct"));
+const ProductDetail = lazy(() => import("./pages/admin/ProductDetail"));
+const UpdateProduct = lazy(() => import("./pages/admin/UpdateProduct"));
 
 const ADMIN_ROUTES = [
   { path: "/admin/dashboard", element: <Dashboard /> },
@@ -24,6 +26,8 @@ const ADMIN_ROUTES = [
   { path: "/admin/category", element: <Category /> },
   { path: "/admin/sub-category", element: <SubCategory /> },
   { path: "/admin/product", element: <Product /> },
+  { path: "/admin/product/:id", element: <ProductDetail /> },
+  { path: "/admin/product/update/:id", element: <UpdateProduct /> },
   { path: "/admin/product/create", element: <CreateProduct /> },
   { path: "/admin/order", element: <Order /> },
   { path: "/admin/review", element: <Review /> },

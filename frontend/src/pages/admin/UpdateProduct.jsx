@@ -11,11 +11,19 @@ import useGetActiveCategories from "../../hooks/useGetActiveCategories";
 import useGetActiveSubCategories from "../../hooks/useGetActiveSubCategories";
 import useGetActiveBrands from "../../hooks/useGetActiveBrands";
 import { Editor } from "primereact/editor";
-import { createProductApi } from "../../apis/productApi";
-import { useNavigate } from "react-router-dom";
+import { updateProductApi } from "../../apis/productApi";
+import { useNavigate, useParams } from "react-router-dom";
+import useGetProductDetails from "../../hooks/useGetProductDetails";
+import { ProgressSpinner } from "primereact/progressspinner";
 
-const CreateProduct = () => {
+const UpdateProduct = () => { 
   const navigate = useNavigate();
+  const { id: productId } = useParams();
+  const {
+    product,
+    fetchProductDetails,
+    loading: pending,
+  } = useGetProductDetails();
   const { fetchActiveCategories, activeCategories } = useGetActiveCategories();
   const { fetchActiveSubCategories, activeSubCategories } =
     useGetActiveSubCategories();
@@ -36,7 +44,7 @@ const CreateProduct = () => {
     brandId: "",
   });
 
-  const onCreate = async () => {
+  const onUpdate = async () => {
     if (form.price <= 0) {
       toast.error("Price must be greater than 0.");
       return;
@@ -60,26 +68,12 @@ const CreateProduct = () => {
     setLoading(true);
 
     try {
-      const response = await createProductApi({ ...form });
+      const response = await updateProductApi(productId, { ...form });
       if (response) toast.success(response.message);
     } catch (error) {
       console.log("Error create new product", error.message);
       toast.error(error.message);
     } finally {
-      setForm({
-        name: "",
-        description: "",
-        about: "",
-        price: 0,
-        salePrice: 0,
-        sizes: "",
-        colors: "",
-        thumbnail: "",
-        images: [],
-        categoryId: "",
-        subCategoryId: "",
-        brandId: "",
-      });
       setLoading(false);
     }
   };
@@ -121,15 +115,39 @@ const CreateProduct = () => {
   };
 
   useEffect(() => {
+    if (product) {
+      setForm({
+        name: product.name,
+        description: product.description,
+        about: product.about,
+        price: product.price,
+        salePrice: product.salePrice,
+        sizes: product.sizes,
+        colors: product.colors,
+        thumbnail: product.thumbnail,
+        images: product.images,
+        categoryId: product.categoryId._id,
+        subCategoryId: product.subCategoryId._id,
+        brandId: product.brandId._id,
+      });
+    }
+  }, [product]);
+
+  useEffect(() => {
     fetchActiveCategories();
     fetchActiveSubCategories();
     fetchActiveBrands();
+    fetchProductDetails(productId);
   }, []);
+
+  if (pending) {
+    return <ProgressSpinner />;
+  }
 
   return (
     <div>
       <div className="flex items-center justify-between">
-        <Heading>Tạo mới sản phẩm</Heading>
+        <Heading>Cập nhật sản phẩm</Heading>
         <div className="flex items-center gap-3">
           <Button
             label="Quay về"
@@ -138,11 +156,11 @@ const CreateProduct = () => {
             onClick={() => navigate("/admin/product")}
           />
           <Button
-            label="Tạo mới sản phẩm"
+            label="Cập nhật sản phẩm"
             icon="pi pi-save"
             loading={loading}
             disabled={loading}
-            onClick={onCreate}
+            onClick={onUpdate}
           />
         </div>
       </div>
@@ -339,4 +357,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default UpdateProduct;

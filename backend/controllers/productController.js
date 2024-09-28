@@ -16,10 +16,6 @@ export const getProducts = async (req, res) => {
         path: "brandId",
         select: "name country image",
       },
-      {
-        path: "supplierId",
-        select: "name email phone address",
-      },
     ]);
 
     return res
@@ -45,10 +41,6 @@ export const getProductDetails = async (req, res) => {
       {
         path: "brandId",
         select: "name country image",
-      },
-      {
-        path: "supplierId",
-        select: "name email phone address",
       },
     ]);
 
