@@ -1,5 +1,5 @@
-import Inventory from "../models/inventoryModel.js";
 import Product from "../models/productModel.js";
+import Stock from "../models/stockModel.js";
 import { uploadImagesCloudinary } from "../utils/uploadImagesCloudinary.js";
 
 export const getProducts = async (req, res) => {
@@ -77,13 +77,13 @@ export const createProduct = async (req, res) => {
     // Extract secure URLs from the image results
     const imageUrls = imageResults.map((result) => result.secure_url);
 
-    const [newProduct, inventory] = await Promise.all([
+    const [newProduct, stock] = await Promise.all([
       Product.create({
         ...req.body,
         thumbnail: thumbnailResult.secure_url,
         images: imageUrls,
       }),
-      Inventory.create({ productId: newProduct?._id }),
+      Stock.create({ productId: newProduct?._id }),
     ]);
 
     return res

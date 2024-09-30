@@ -1,23 +1,17 @@
-import Inventory from "../models/inventoryModel.js";
 import StockEntry from "../models/stockEntryModel.js";
+import Stock from "../models/stockModel.js";
 
 export const getStockEntries = async (req, res) => {
   try {
-    const { status } = req.query; // Get status from query params
+    const { status } = req.query;
 
-    // Create a filter based on the status if provided
     const filter = status ? { status } : {};
 
-    // Find stock entries, populate the supplier and productId fields
-    const stockEntries = await StockEntry.find(filter)
-      .populate({
-        path: "supplier",
-        select: "name email phone address", // Select specific supplier fields to populate
-      })
-      .populate({
-        path: "products.productId",
-        select: "name thumbnail price category", // Select specific product fields to populate
-      });
+    const stockEntries = await StockEntry.find(filter).populate([
+      {
+        path: "supplierId",
+      },
+    ]);
 
     return res.status(200).json({ results: stockEntries });
   } catch (error) {
@@ -26,28 +20,55 @@ export const getStockEntries = async (req, res) => {
   }
 };
 
+export const getStockEntryDetails = async (req, res) => {
+  try {
+    const stockEntry = await StockEntry.findById(req.params.id).populate([
+      {
+        path: "supplierId",
+      },
+      {
+        path: "products.productId",
+        populate: [
+          {
+            path: "categoryId",
+          },
+          {
+            path: "subCategoryId",
+          },
+          {
+            path: "brandId",
+          },
+        ],
+      },
+    ]);
+
+    return res.status(200).json({ results: stockEntry });
+  } catch (error) {
+    console.log("Error getting stock entry details:", error.message);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 export const createStockEntry = async (req, res) => {
   try {
     const { products } = req.body;
 
-    // Create the new stock entry
     const newStockEntry = await StockEntry.create({
       ...req.body,
       products,
     });
 
-    // Update inventory quantities using Promise.all for concurrency
     await Promise.all(
       products.map(async (product) => {
-        const inventory = await Inventory.findOne({
+        let stock = await Stock.findOne({
           productId: product.productId,
         });
 
-        // If the inventory exists, update its quantity
-        if (inventory) {
-          inventory.quantity -= product.quantity;
-          await inventory.save();
+        if (stock) {
+          stock.quantity += product.quantity;
         }
+
+        await stock.save();
       })
     );
 

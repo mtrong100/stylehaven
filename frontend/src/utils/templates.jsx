@@ -44,16 +44,45 @@ export const statusBodyTemplate = (rowData) => {
 };
 
 export const inventoryStatusBodyTemplate = (rowData) => {
-  return (
-    <Badge
-      value={rowData.status}
-      severity={
-        rowData.status === "In Stock"
-          ? "success"
-          : rowData.status === "Low Stock"
-          ? "warning"
-          : "danger"
-      }
-    />
-  );
+  const statusLabel =
+    rowData.status === "In Stock"
+      ? "Còn hàng"
+      : rowData.status === "Low Stock"
+      ? "Còn ít hàng"
+      : "Hết hàng";
+
+  const statusSeverity =
+    rowData.status === "In Stock"
+      ? "success"
+      : rowData.status === "Low Stock"
+      ? "warning"
+      : "danger";
+
+  return <Badge value={statusLabel} severity={statusSeverity} />;
+};
+
+export const stockEntryStatusTemplate = (rowData) => {
+  const statusLabel =
+    rowData.status === "Pending"
+      ? "Chờ xử lí"
+      : rowData.status === "Completed"
+      ? "Thành công"
+      : "Hủy";
+
+  const statusSeverity =
+    rowData.status === "Completed"
+      ? "success"
+      : rowData.status === "Pending"
+      ? "warning"
+      : "danger";
+
+  return <Badge value={statusLabel} severity={statusSeverity} />;
+};
+
+export const entryDateBodyTemplate = (rowData) => {
+  return <div>{formatDate(rowData.entryDate)}</div>;
+};
+
+export const stockEntryAmount = (rowData) => {
+  return <div>{rowData.products.length || 0}</div>;
 };

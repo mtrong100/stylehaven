@@ -1,12 +1,12 @@
 import express from "express";
 import { protect } from "../middlewares/authMiddlware.js";
-import { getInventory } from "../controllers/inventoryController.js";
+import { createStock, getStock } from "../controllers/stockController.js";
 
 const router = express.Router();
 
-router.get("/", protect, getInventory);
+router.get("/", protect, getStock);
 
-// router.post("/create", createInventory);
+router.post("/create", createStock);
 
 // router.delete("/delete/:id", protect, deleteInventory);
 

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const inventorySchema = new mongoose.Schema(
+const stockSchema = new mongoose.Schema(
   {
     productId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -13,7 +13,7 @@ const inventorySchema = new mongoose.Schema(
       default: 0,
     },
     status: {
-    type: String,
+      type: String,
       enum: ["In Stock", "Out of Stock", "Low Stock"],
       default: "In Stock",
     },
@@ -23,7 +23,7 @@ const inventorySchema = new mongoose.Schema(
   }
 );
 
-inventorySchema.pre("save", function (next) {
+stockSchema.pre("save", function (next) {
   if (this.quantity === 0) {
     this.status = "Out of Stock";
   } else if (this.quantity < 10) {
@@ -34,5 +34,5 @@ inventorySchema.pre("save", function (next) {
   next();
 });
 
-const Inventory = mongoose.model("Inventory", inventorySchema);
-export default Inventory;
+const Stock = mongoose.model("Stock", stockSchema);
+export default Stock;

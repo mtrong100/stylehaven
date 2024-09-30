@@ -4,12 +4,15 @@ import {
   createStockEntry,
   deleteStockEntry,
   getStockEntries,
+  getStockEntryDetails,
   updateStockEntry,
 } from "../controllers/stockEntryController.js";
 
 const router = express.Router();
 
 router.get("/", protect, getStockEntries);
+
+router.get("/:id", protect, getStockEntryDetails);
 
 router.post("/create", protect, createStockEntry);
 

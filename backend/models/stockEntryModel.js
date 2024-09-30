@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const stockEntrySchema = new mongoose.Schema(
   {
-    supplier: {
+    supplierId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Supplier",
       required: true,

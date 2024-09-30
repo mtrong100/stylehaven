@@ -1,4 +1,5 @@
 import {
+  BaggageClaim,
   BookText,
   Folder,
   FolderClosed,
@@ -35,7 +36,8 @@ export const SIDEBAR_LINKS = [
   { name: "Đơn hàng", link: "/admin/order", icon: <ShoppingCart /> },
   { name: "Đánh giá", link: "/admin/review", icon: <Star /> },
   { name: "Khuyến mãi", link: "/admin/voucher", icon: <Ticket /> },
-  { name: "Kho", link: "/admin/inventory", icon: <Warehouse /> },
+  { name: "Tồn kho", link: "/admin/inventory", icon: <Warehouse /> },
+  { name: "Nhập hàng hóa", link: "/admin/stock-entry", icon: <BaggageClaim /> },
   { name: "Bài viết", link: "/admin/post", icon: <BookText /> },
   { name: "Nhà cung cấp", link: "/admin/supplier", icon: <UserPlus /> },
 ];
