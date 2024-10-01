@@ -14,6 +14,7 @@ import { Dropdown } from "primereact/dropdown";
 import { createStockEntryApi } from "../../apis/stockEntryApi";
 import { useNavigate } from "react-router-dom";
 import useGetSuppliers from "../../hooks/useGetSuppliers";
+import { formatCurrencyVND } from "../../utils/helper";
 
 const Inventory = () => {
   const navigate = useNavigate();
@@ -146,6 +147,10 @@ const Inventory = () => {
     );
   };
 
+  const priceTemplate = (rowData) => {
+    return <div>{formatCurrencyVND(rowData.productId.price)}</div>;
+  };
+
   useEffect(() => {
     fetchInventories();
   }, [filter]);
@@ -160,8 +165,8 @@ const Inventory = () => {
         <Heading>Quản lí tồn kho</Heading>
         <Button
           icon="pi pi-cart-arrow-down"
-          label="Nhập thêm hàng hóa"
-          onClick={() => navigate("/admin/inventory/create")}
+          label="Lập phiếu nhập hàng hóa"
+          onClick={() => navigate("/admin/import-stock")}
         />
       </div>
 
@@ -192,7 +197,12 @@ const Inventory = () => {
             maxWidth: "300px",
           }}
         />
-        <Column field="productId.price" header="Giá tiền" sortable />
+        <Column
+          field="productId.price"
+          header="Giá tiền"
+          sortable
+          body={priceTemplate}
+        />
         <Column field="quantity" header="Tồn kho" sortable />
         <Column
           field="status"

@@ -8,6 +8,7 @@ import { Image } from "primereact/image";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { formatCurrencyVND } from "../../utils/helper";
 
 const StockEntryDetails = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const StockEntryDetails = () => {
   const stockEntryData = [
     { field: "Mã", data: details?._id },
     { field: "Nhà cung cấp", data: details?.supplierId?.name },
-    { field: "Tổng tiền", data: details?.totalCost },
+    { field: "Tổng tiền", data: formatCurrencyVND(details?.totalCost) },
     { field: "Ngày nhập hàng", data: details?.entryDate },
     { field: "Trạng thái", data: details?.status },
     { field: "Ngày lập phiếu", data: details?.createdAt },
@@ -43,6 +44,14 @@ const StockEntryDetails = () => {
 
   const productThumnailBodyTemplate = (rowData) => {
     return <Image src={rowData.productId.thumbnail} alt="Image" width="80" />;
+  };
+
+  const priceTemplate = (rowData) => {
+    return <div>{formatCurrencyVND(rowData.price)}</div>;
+  };
+
+  const totalPriceTemplate = (rowData) => {
+    return <div>{formatCurrencyVND(rowData.price * rowData.quantity)}</div>;
   };
 
   if (loading) {
@@ -106,8 +115,13 @@ const StockEntryDetails = () => {
           }}
         />
         <Column field="quantity" header="Số lượng" sortable />
-        <Column field="price" header="Đơn giá" sortable />
-        <Column field="total" header="Tổng tiền" sortable />
+        <Column field="price" header="Đơn giá" sortable body={priceTemplate} />
+      <Column
+          field="total"
+          header="Tổng tiền"
+          sortable
+          body={totalPriceTemplate}
+        />
       </DataTable>
     </div>
   );

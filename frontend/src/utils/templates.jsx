@@ -37,7 +37,7 @@ export const productThumnailBodyTemplate = (rowData) => {
 export const statusBodyTemplate = (rowData) => {
   return (
     <Badge
-      value={rowData.status}
+      value={rowData.status === "Active" ? "Hoạt động" : "Ngưng hoạt động"}
       severity={rowData.status === "Active" ? "success" : "danger"}
     />
   );

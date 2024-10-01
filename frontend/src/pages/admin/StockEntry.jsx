@@ -21,6 +21,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Dialog } from "primereact/dialog";
+import { formatCurrencyVND } from "../../utils/helper";
 
 const StockEntry = () => {
   const navigate = useNavigate();
@@ -137,6 +138,10 @@ const StockEntry = () => {
     );
   };
 
+  const totalCostTemplate = (rowData) => {
+    return <div>{formatCurrencyVND(rowData.totalCost)}</div>;
+  };
+
   useEffect(() => {
     fetchStockEntry();
   }, [filter]);
@@ -147,8 +152,8 @@ const StockEntry = () => {
         <Heading>Quản lí nhập hàng hóa</Heading>
         <Button
           icon="pi pi-cart-arrow-down"
-          label="Nhập thêm hàng hóa"
-          onClick={() => navigate("/admin/inventory/create")}
+          label="Lập phiếu nhập hàng hóa"
+          onClick={() => navigate("/admin/import-stock")}
         />
       </div>
 
@@ -168,7 +173,12 @@ const StockEntry = () => {
         <Column field="_id" header="Mã" sortable />
         <Column field="supplierId.name" header="Nhà cung cấp" sortable />
         <Column header="Số lượng" sortable body={stockEntryAmount} />
-        <Column field="totalCost" header="Tổng tiền" sortable />
+        <Column
+          field="totalCost"
+          header="Tổng tiền"
+          sortable
+          body={totalCostTemplate}
+        />
         <Column
           field="entryDate"
           header="Ngày nhập"

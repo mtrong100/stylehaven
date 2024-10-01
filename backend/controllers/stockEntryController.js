@@ -7,11 +7,13 @@ export const getStockEntries = async (req, res) => {
 
     const filter = status ? { status } : {};
 
-    const stockEntries = await StockEntry.find(filter).populate([
-      {
-        path: "supplierId",
-      },
-    ]);
+    const stockEntries = await StockEntry.find(filter)
+      .populate([
+        {
+          path: "supplierId",
+        },
+      ])
+      .sort({ createdAt: -1 });
 
     return res.status(200).json({ results: stockEntries });
   } catch (error) {

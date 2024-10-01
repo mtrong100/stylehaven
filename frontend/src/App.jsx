@@ -21,6 +21,7 @@ const ProductDetail = lazy(() => import("./pages/admin/ProductDetail"));
 const UpdateProduct = lazy(() => import("./pages/admin/UpdateProduct"));
 const StockEntry = lazy(() => import("./pages/admin/StockEntry"));
 const StockEntryDetails = lazy(() => import("./pages/admin/StockEntryDetails"));
+const ImportStock = lazy(() => import("./pages/admin/ImportStock"));
 
 const ADMIN_ROUTES = [
   { path: "/admin/dashboard", element: <Dashboard /> },
@@ -40,6 +41,7 @@ const ADMIN_ROUTES = [
   { path: "/admin/brand", element: <Brand /> },
   { path: "/admin/stock-entry", element: <StockEntry /> },
   { path: "/admin/stock-entry/:id", element: <StockEntryDetails /> },
+  { path: "/admin/import-stock", element: <ImportStock /> },
 ];
 
 function App() {

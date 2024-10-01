@@ -7,6 +7,7 @@ import supplierRouter from "./supplierRouter.js";
 import productRouter from "./productRouter.js";
 import stockEntryRouter from "./stockEntryRouter.js";
 import stockRouter from "./stockRouter.js";
+import voucherRouter from "./voucherRouter.js";
 
 const router = express.Router();
 
@@ -18,5 +19,6 @@ router.use("/suppliers", supplierRouter);
 router.use("/products", productRouter);
 router.use("/stocks", stockRouter);
 router.use("/stock-entries", stockEntryRouter);
+router.use("/vouchers", voucherRouter);
 
 export default router;

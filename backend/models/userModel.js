@@ -60,8 +60,14 @@ const userSchema = new mongoose.Schema(
     },
     vouchers: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Voucher",
+        voucherId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Voucher",
+        },
+        quantity: {
+          type: Number,
+          default: 0,
+        },
       },
     ],
   },

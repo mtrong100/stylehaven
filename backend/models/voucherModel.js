@@ -7,11 +7,6 @@ const voucherSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    discountType: {
-      type: String,
-      enum: ["Percentage", "Fixed Amount"],
-      required: true,
-    },
     discountValue: {
       type: Number,
       required: true,
@@ -20,15 +15,17 @@ const voucherSchema = new mongoose.Schema(
     pointsRequired: {
       type: Number,
       required: true,
-      min: 0,
+      min: 50,
     },
     expirationDate: {
       type: Date,
       required: true,
     },
-    isActive: {
-      type: Boolean,
-      default: true,
+    status: {
+      type: String,
+      enum: ["Active", "Inactive"],
+      default: "Active",
+      required: true,
     },
   },
   {
