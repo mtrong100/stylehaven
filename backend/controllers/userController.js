@@ -239,7 +239,7 @@ export const resetPassword = async (req, res) => {
 
 export const createUser = async (req, res) => {
   try {
-    const { name, email, password, avatar, address, phone } = req.body;
+    const { name, email, password, address, phone } = req.body;
 
     const userExisted = await User.findOne({ email });
 
@@ -247,15 +247,12 @@ export const createUser = async (req, res) => {
 
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    const uploadedImage = await uploadImagesCloudinary(avatar);
-
     const newUser = await User.create({
       name,
       email,
       password: hashedPassword,
       address,
       phone,
-      avatar: uploadedImage.secure_url,
     });
 
     const userData = await User.findById(newUser._id)
