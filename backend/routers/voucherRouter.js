@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-router.get("/", protect, getVouchers);
+router.get("/", getVouchers);
 
 router.post("/create", protect, createVoucher);
 

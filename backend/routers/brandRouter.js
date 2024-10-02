@@ -10,9 +10,9 @@ import {
 
 const router = express.Router();
 
-router.get("/", protect, getBrands);
+router.get("/", getBrands);
 
-router.get("/active", protect, getActiveBrands);
+router.get("/active", getActiveBrands);
 
 router.post("/create", protect, createBrand);
 

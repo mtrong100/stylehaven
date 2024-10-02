@@ -10,9 +10,9 @@ import {
 
 const router = express.Router();
 
-router.get("/", protect, getProducts);
+router.get("/", getProducts);
 
-router.get("/:id", protect, getProductDetails);
+router.get("/:id", getProductDetails);
 
 router.post("/create", protect, createProduct);
 

@@ -8,6 +8,8 @@ import productRouter from "./productRouter.js";
 import stockEntryRouter from "./stockEntryRouter.js";
 import stockRouter from "./stockRouter.js";
 import voucherRouter from "./voucherRouter.js";
+import postRouter from "./postRouter.js";
+import commentRouter from "./commentRouter.js";
 
 const router = express.Router();
 
@@ -20,5 +22,7 @@ router.use("/products", productRouter);
 router.use("/stocks", stockRouter);
 router.use("/stock-entries", stockEntryRouter);
 router.use("/vouchers", voucherRouter);
+router.use("/posts", postRouter);
+router.use("/comments", commentRouter);
 
 export default router;

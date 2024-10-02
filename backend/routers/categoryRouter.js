@@ -10,9 +10,9 @@ import {
 
 const router = express.Router();
 
-router.get("/", protect, getCategories);
+router.get("/", getCategories);
 
-router.get("/active", protect, getActiveCategories);
+router.get("/active", getActiveCategories);
 
 router.post("/create", protect, createCategory);
 
