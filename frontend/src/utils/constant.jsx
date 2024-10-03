@@ -74,3 +74,14 @@ export const clothingColors = [
   "Tím lilac",
   "Xanh lơ",
 ];
+
+export const postCategories = [
+  "Xu hướng",
+  "Mẹo phối đồ",
+  "Chọn trang phục",
+  "Bảo quản quần áo",
+  "Phong cách sao",
+  "Mua sắm thông minh",
+  "Khuyến mãi",
+  "Hậu trường thời trang",
+];

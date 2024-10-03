@@ -1,23 +1,23 @@
 import { useState } from "react";
-import { getProductDetailsApi } from "../apis/productApi";
 import toast from "react-hot-toast";
+import { getPostDetailsApi } from "../apis/postApi";
 
-export default function useGetProductDetails() {
-  const [product, setProduct] = useState(null);
+export default function useGetPostDetails() {
+  const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchProductDetails = async (productId) => {
+  const fetchPostDetails = async (postId) => {
     try {
       setLoading(true);
-      const response = await getProductDetailsApi(productId);
-      if (response) setProduct(response.results);
+      const response = await getPostDetailsApi(postId);
+      if (response) setPost(response.results);
     } catch (error) {
-      console.log("Error fetching product details", error.message);
+      console.log("Error fetching post details", error.message);
       toast.error(error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  return { product, fetchProductDetails, loading };
+  return { post, fetchPostDetails, loading };
 }
