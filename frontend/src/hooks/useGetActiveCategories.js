@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getActiveCategoriesApi } from "../apis/categoryApi";
+import { getCategoriesApi } from "../apis/categoryApi";
 import toast from "react-hot-toast";
 
 export default function useGetActiveCategories() {
@@ -7,7 +7,7 @@ export default function useGetActiveCategories() {
 
   const fetchActiveCategories = async () => {
     try {
-      const response = await getActiveCategoriesApi();
+      const response = await getCategoriesApi({ status: "Active" });
       if (response) setActiveCategories(response.results);
     } catch (error) {
       console.error("Error fetching active categories:", error);

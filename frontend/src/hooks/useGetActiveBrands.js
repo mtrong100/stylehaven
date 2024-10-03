@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getActiveBrandsApi } from "../apis/brandApi";
+import { getBrandsApi } from "../apis/brandApi";
 import toast from "react-hot-toast";
 
 export default function useGetActiveBrands() {
@@ -7,7 +7,7 @@ export default function useGetActiveBrands() {
 
   const fetchActiveBrands = async () => {
     try {
-      const response = await getActiveBrandsApi();
+      const response = await getBrandsApi({ status: "Active" });
       if (response) setActiveBrands(response.results);
     } catch (error) {
       console.error("Error fetching active brands:", error);

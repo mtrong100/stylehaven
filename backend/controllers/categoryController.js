@@ -2,7 +2,9 @@ import Category from "../models/categoryModel.js";
 
 export const getCategories = async (req, res) => {
   try {
-    const categories = await Category.aggregate([
+    const { status } = req.query;
+
+    const pipeline = [
       {
         $lookup: {
           from: "products",
@@ -22,7 +24,15 @@ export const getCategories = async (req, res) => {
       {
         $sort: { createdAt: -1 },
       },
-    ]);
+    ];
+
+    if (status) {
+      pipeline.unshift({
+        $match: { status: status },
+      });
+    }
+
+    const categories = await Category.aggregate(pipeline);
 
     return res.status(200).json({
       message: "Categories fetched successfully",

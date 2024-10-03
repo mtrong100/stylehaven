@@ -161,7 +161,12 @@ const Post = () => {
       >
         <Column field="_id" header="Mã" sortable />
         <Column field="image" header="Hình ảnh" body={imageTemplate} />
-        <Column field="title" header="tiêu đề" sortable />
+        <Column
+          field="title"
+          header="tiêu đề"
+          sortable
+          style={{ maxWidth: "300px" }}
+        />
         <Column field="category" header="Danh mục" sortable />
         <Column
           field="status"

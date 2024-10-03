@@ -2,7 +2,10 @@ import Brand from "../models/brandModel.js";
 
 export const getBrands = async (req, res) => {
   try {
-    const brands = await Brand.aggregate([
+    const { status } = req.query;
+
+    // Build aggregation pipeline
+    const pipeline = [
       {
         $lookup: {
           from: "products",
@@ -24,7 +27,16 @@ export const getBrands = async (req, res) => {
       {
         $sort: { createdAt: -1 },
       },
-    ]);
+    ];
+
+    // Add status filter if status is provided in the query
+    if (status) {
+      pipeline.unshift({
+        $match: { status: status },
+      });
+    }
+
+    const brands = await Brand.aggregate(pipeline);
 
     return res.status(200).json({
       message: "Brands fetched successfully",

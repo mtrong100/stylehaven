@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getActiveSubCategoriesApi } from "../apis/subCategoryApi";
+import { getSubCategoriesApi } from "../apis/subCategoryApi";
 import toast from "react-hot-toast";
 
 export default function useGetActiveSubCategories() {
@@ -7,7 +7,7 @@ export default function useGetActiveSubCategories() {
 
   const fetchActiveSubCategories = async () => {
     try {
-      const response = await getActiveSubCategoriesApi();
+      const response = await getSubCategoriesApi({ status: "Active" });
       if (response) setActiveSubCategories(response.results);
     } catch (error) {
       console.error("Error fetching active sub categories:", error);

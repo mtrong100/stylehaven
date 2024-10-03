@@ -2,7 +2,10 @@ import SubCategory from "../models/subCategoryModel.js";
 
 export const getSubCategories = async (req, res) => {
   try {
-    const subCategories = await SubCategory.aggregate([
+    const { status } = req.query;
+
+    // Build aggregation pipeline
+    const pipeline = [
       {
         $lookup: {
           from: "categories",
@@ -35,14 +38,23 @@ export const getSubCategories = async (req, res) => {
       {
         $sort: { createdAt: -1 },
       },
-    ]);
+    ];
+
+    // Add status filter if status is provided in the query
+    if (status) {
+      pipeline.unshift({
+        $match: { status: status },
+      });
+    }
+
+    const subCategories = await SubCategory.aggregate(pipeline);
 
     return res.status(200).json({
       message: "SubCategories fetched successfully",
       results: subCategories,
     });
   } catch (error) {
-    console.log("Error fetching subCategories", error.message);
+    console.error("Error fetching subCategories", error.message);
     return res.status(500).json({ message: error.message });
   }
 };
