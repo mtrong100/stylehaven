@@ -12,3 +12,10 @@
   @tailwind components;
   @tailwind utilities;
 }
+
+.page-container {
+  width: 100%;
+  max-width: 1300px;
+  padding: 0 20px;
+  margin: 0 auto;
+}

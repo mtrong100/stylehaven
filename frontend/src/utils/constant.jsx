@@ -85,3 +85,22 @@ export const postCategories = [
   "Khuyến mãi",
   "Hậu trường thời trang",
 ];
+
+export const NAV_LINKS = [
+  {
+    name: "Trang chủ",
+    link: "/",
+  },
+  {
+    name: "Sản phẩm",
+    link: "/product",
+  },
+  {
+    name: "Yêu thích",
+    link: "/wishlist",
+  },
+  {
+    name: "Tài khoản",
+    link: "/profile",
+  },
+];
